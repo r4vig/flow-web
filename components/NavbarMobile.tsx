@@ -10,87 +10,82 @@ const links = [
   { name: "Home", href: "/" },
   { name: "About us", href: "/about" },
   { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" },
 ];
 
 function NavbarMobileComponent() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Prevent scroll on background when menu is open
+  // Disable scrolling
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   return (
     <>
-      {/* HAMBURGER BUTTON */}
+      {/* Hamburger Button */}
       <button
         onClick={() => setOpen(!open)}
         aria-label="Toggle menu"
-        aria-expanded={open}
-        aria-controls="mobile-menu"
-        className="md:hidden flex flex-col gap-[6px] z-[60]"
+        className="md:hidden flex flex-col gap-[6px] z-[999]"
       >
         <motion.span
           animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-          className="w-7 h-[3px] bg-brand-navy rounded"
+          className="w-6 h-[3px] bg-brand-navy rounded"
         />
         <motion.span
           animate={open ? { opacity: 0 } : { opacity: 1 }}
-          className="w-7 h-[3px] bg-brand-navy rounded"
+          className="w-6 h-[3px] bg-brand-navy rounded"
         />
         <motion.span
           animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-          className="w-7 h-[3px] bg-brand-navy rounded"
+          className="w-6 h-[3px] bg-brand-navy rounded"
         />
       </button>
 
-      {/* MOBILE MENU SLIDE */}
       <AnimatePresence>
         {open && (
           <>
-            {/* BACKGROUND OVERLAY */}
+            {/* Full-screen background */}
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.45 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black z-[90]"
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-white z-[998]"
               onClick={() => setOpen(false)}
             />
 
-            {/* FULLSCREEN PANEL */}
+            {/* MENU PANEL */}
             <motion.div
-              key="menu-panel"
-              id="mobile-menu"
+              key="menu"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 260, damping: 25 }}
-              className="fixed inset-0 h-screen w-full bg-white z-[100] p-12 flex flex-col items-center gap-10 overflow-y-auto"
-              role="dialog"
-              aria-modal="true"
+              transition={{ type: "spring", stiffness: 240, damping: 22 }}
+              className="fixed top-0 right-0 w-full h-full z-[999] flex flex-col items-center gap-10 py-16 bg-white"
             >
               {/* LOGO */}
               <Image
                 src="/logo.png"
-                alt="Flow — Human Flow for Digital Growth"
-                width={150}
-                height={40}
-                className="h-auto w-auto"
+                alt="FLOW Logo"
+                width={180}
+                height={80}
+                className="mb-2"
               />
 
-              {/* MENU LINKS */}
-              <ul className="flex flex-col gap-6 text-xl font-semibold text-brand-navy items-center w-full">
+              {/* MENU ITEMS */}
+              <ul className="flex flex-col items-center gap-8 text-xl font-semibold text-brand-navy">
                 {links.map((link) => {
                   const active = pathname === link.href;
                   return (
-                    <li key={link.name} className="w-full flex justify-center">
+                    <li key={link.name}>
                       <Link
                         href={link.href}
                         onClick={() => setOpen(false)}
-                        className={`w-full text-center py-3 rounded-xl transition ${
+                        className={`block px-6 py-3 rounded-xl ${
                           active
                             ? "bg-brand-navy text-white"
                             : "hover:bg-gray-100"
@@ -103,14 +98,13 @@ function NavbarMobileComponent() {
                 })}
               </ul>
 
-              {/* CONTACT CTA */}
-              <Link
-                href="/contact"
+              {/* CLOSE BUTTON */}
+              <button
                 onClick={() => setOpen(false)}
-                className="w-full text-center py-3 bg-brand-orange text-brand-navy font-semibold rounded-full shadow-md hover:bg-[#e28a36] transition"
+                className="mt-auto text-brand-navy font-medium text-sm underline"
               >
-                Contact
-              </Link>
+                Close
+              </button>
             </motion.div>
           </>
         )}
