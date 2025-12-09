@@ -10,51 +10,35 @@ const links = [
   { name: "Home", href: "/" },
   { name: "About us", href: "/about" },
   { name: "Services", href: "/services" },
-  { name: "Contact", href: "/contact" },
 ];
 
 function NavbarMobileComponent() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  // Lock scroll
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   return (
     <>
-      {/* Hamburger Button */}
+      {/* HAMBURGER */}
       <button
         onClick={() => setOpen(!open)}
         aria-label="Toggle menu"
         aria-expanded={open}
-        aria-controls="mobile-menu"
         className="md:hidden flex flex-col gap-[6px] z-[60]"
       >
-        <motion.span
-          animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-          className="w-6 h-[3px] bg-brand-navy rounded"
-        />
-        <motion.span
-          animate={
-            open
-              ? { opacity: 0 }
-              : { opacity: 1, transition: { delay: 0.1 } }
-          }
-          className="w-6 h-[3px] bg-brand-navy rounded"
-        />
-        <motion.span
-          animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-          className="w-6 h-[3px] bg-brand-navy rounded"
-        />
+        <motion.span animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="w-7 h-[3px] bg-brand-navy rounded" />
+        <motion.span animate={open ? { opacity: 0 } : { opacity: 1 }} className="w-7 h-[3px] bg-brand-navy rounded" />
+        <motion.span animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="w-7 h-[3px] bg-brand-navy rounded" />
       </button>
 
-      {/* Mobile Menu */}
+      {/* MENU MOBILE */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Overlay */}
+            {/* OVERLAY */}
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
@@ -65,45 +49,35 @@ function NavbarMobileComponent() {
               onClick={() => setOpen(false)}
             />
 
-            {/* Slide panel */}
+            {/* PANEL */}
             <motion.div
-              key="menu"
-              id="mobile-menu"
+              key="menu-panel"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 260, damping: 25 }}
-              className="fixed top-0 right-0 h-full w-[75%] max-w-xs bg-white shadow-xl z-50 p-8 flex flex-col gap-8"
-              role="dialog"
-              aria-modal="true"
+              className="fixed top-0 right-0 h-full w-[80%] bg-white shadow-xl z-50 p-10 flex flex-col items-center gap-10"
             >
-              {/* LOGO ACTUALIZADO */}
-              <div className="flex items-center gap-3">
-                <Image
-                  src="/logo.png"
-                  alt="Flow — Human Flow for Digital Growth"
-                  width={130}
-                  height={45}
-                  className="h-auto w-auto"
-                  priority={false}
-                />
-              </div>
+              {/* LOGO */}
+              <Image
+                src="/logo.png"
+                alt="Flow — Human Flow for Digital Growth"
+                width={140}
+                height={40}
+                className="h-auto w-auto"
+              />
 
-              {/* MENÚ */}
-              <ul className="flex flex-col gap-6 text-lg font-medium text-brand-navy">
+              {/* LINKS */}
+              <ul className="flex flex-col gap-6 text-lg font-semibold text-brand-navy items-center w-full">
                 {links.map((link) => {
                   const active = pathname === link.href;
-
                   return (
-                    <li key={link.name}>
+                    <li key={link.name} className="w-full flex justify-center">
                       <Link
                         href={link.href}
                         onClick={() => setOpen(false)}
-                        aria-current={active ? "page" : undefined}
-                        className={`block px-3 py-2 rounded-lg transition-all ${
-                          active
-                            ? "bg-brand-navy text-white"
-                            : "hover:bg-gray-100"
+                        className={`w-full text-center py-3 rounded-xl transition ${
+                          active ? "bg-brand-navy text-white" : "hover:bg-gray-100"
                         }`}
                       >
                         {link.name}
@@ -112,6 +86,15 @@ function NavbarMobileComponent() {
                   );
                 })}
               </ul>
+
+              {/* CTA CONTACT */}
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="w-full text-center py-3 bg-brand-orange text-brand-navy font-semibold rounded-full shadow-md hover:bg-[#e28a36] transition"
+              >
+                Contact
+              </Link>
             </motion.div>
           </>
         )}

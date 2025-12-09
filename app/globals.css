@@ -2,20 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🔥 BLOQUEO ABSOLUTO de dark mode forzado */
 html {
+  background: #ffffff !important;
   color-scheme: light !important;
-  background-color: #ffffff !important;
   forced-color-adjust: none !important;
-}
-body {
-  background-color: #ffffff !important;
-  color: #112739 !important; /* tu brand-navy probablemente */
+  scroll-behavior: smooth;
 }
 
-html {
-  color-scheme: light !important;
-  background-color: #ffffff !important;
-  forced-color-adjust: none !important;
+body {
+  background: #ffffff !important;
+  color: #112739 !important;
+  @apply bg-white text-brand-navy antialiased;
+}
+
+/* Previene inversión de color en Samsung Internet & Facebook Browser */
+* {
+  color-adjust: exact !important;
+  -webkit-color-adjust: exact !important;
 }
 
 :root {
@@ -26,20 +30,13 @@ html {
   --color-brand-navy: #112739;
 }
 
-/* Scroll suave para navegación interna */
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  @apply bg-white text-brand-navy antialiased;
-}
-
-/* Enfoque accesible para elementos interactivos */
+/* Accesibilidad para estados de enfoque */
 :focus-visible {
   outline: 2px solid #d17f32;
   outline-offset: 2px;
 }
+
+/* 🎯 Clases de formularios */
 .input {
   @apply w-full rounded-lg border px-3 py-2 outline-none border-gray-300 
   focus:border-brand-orange focus:ring-1 focus:ring-brand-orange/70;
