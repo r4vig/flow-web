@@ -23,47 +23,55 @@ export default function NavbarMobile() {
 
   return (
     <>
-      {/* Hamburger Button */}
+      {/* Hamburger */}
       <button
         onClick={() => setOpen(true)}
-        aria-label="Open menu"
-        className="md:hidden flex flex-col gap-[6px] z-[60]"
+        className="md:hidden z-[1000000] flex flex-col gap-[6px]"
       >
-        <span className="w-6 h-[3px] bg-brand-navy rounded"></span>
-        <span className="w-6 h-[3px] bg-brand-navy rounded"></span>
-        <span className="w-6 h-[3px] bg-brand-navy rounded"></span>
+        <span className="w-7 h-[3px] bg-brand-navy rounded" />
+        <span className="w-7 h-[3px] bg-brand-navy rounded" />
+        <span className="w-7 h-[3px] bg-brand-navy rounded" />
       </button>
 
+      {/* Fullscreen Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-brand-navy z-[9999] text-white flex flex-col p-8"
+            transition={{ duration: 0.3 }}
+            className="
+              fixed inset-0 
+              bg-brand-navy 
+              text-white 
+              flex flex-col 
+              items-center 
+              justify-center
+              gap-10
+              z-[2000000]
+              h-[100vh]
+              w-[100vw]
+            "
           >
-            {/* Close Button */}
+            {/* Close button */}
             <button
               onClick={() => setOpen(false)}
-              aria-label="Close menu"
-              className="absolute top-5 right-5 text-white text-3xl"
+              className="absolute top-6 right-6 text-4xl font-bold"
             >
               ×
             </button>
 
             {/* Logo */}
-            <div className="flex justify-center mt-10 mb-10">
-              <Image
-                src="/logo.png"
-                alt="Flow"
-                width={160}
-                height={60}
-                className="brightness-200"
-              />
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Flow"
+              width={160}
+              height={60}
+              priority
+            />
 
-            {/* Menu Links */}
-            <ul className="flex flex-col gap-8 text-center text-2xl font-semibold">
+            <ul className="flex flex-col gap-8 text-3xl font-semibold text-center">
               {links.map((link) => {
                 const active = pathname === link.href;
                 return (
@@ -71,11 +79,11 @@ export default function NavbarMobile() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className={`transition ${
+                      className={`${
                         active
                           ? "text-brand-orange"
                           : "hover:text-brand-orange/80"
-                      }`}
+                      } transition`}
                     >
                       {link.name}
                     </Link>

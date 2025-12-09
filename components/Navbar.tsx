@@ -7,7 +7,7 @@ import NavbarMobile from "./NavbarMobile";
 
 export default function Navbar() {
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+    <header className="w-full fixed top-0 left-0 z-[1000] bg-white/90 backdrop-blur-md shadow-sm">
       <nav
         className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4"
         role="navigation"
