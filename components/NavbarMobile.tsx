@@ -16,59 +16,73 @@ function NavbarMobileComponent() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
+  // Prevent scroll on background when menu is open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
   }, [open]);
 
   return (
     <>
-      {/* HAMBURGER */}
+      {/* HAMBURGER BUTTON */}
       <button
         onClick={() => setOpen(!open)}
         aria-label="Toggle menu"
         aria-expanded={open}
+        aria-controls="mobile-menu"
         className="md:hidden flex flex-col gap-[6px] z-[60]"
       >
-        <motion.span animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="w-7 h-[3px] bg-brand-navy rounded" />
-        <motion.span animate={open ? { opacity: 0 } : { opacity: 1 }} className="w-7 h-[3px] bg-brand-navy rounded" />
-        <motion.span animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="w-7 h-[3px] bg-brand-navy rounded" />
+        <motion.span
+          animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+          className="w-7 h-[3px] bg-brand-navy rounded"
+        />
+        <motion.span
+          animate={open ? { opacity: 0 } : { opacity: 1 }}
+          className="w-7 h-[3px] bg-brand-navy rounded"
+        />
+        <motion.span
+          animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+          className="w-7 h-[3px] bg-brand-navy rounded"
+        />
       </button>
 
-      {/* MENU MOBILE */}
+      {/* MOBILE MENU SLIDE */}
       <AnimatePresence>
         {open && (
           <>
-            {/* OVERLAY */}
+            {/* BACKGROUND OVERLAY */}
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
+              animate={{ opacity: 0.45 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black z-40"
+              className="fixed inset-0 bg-black z-[90]"
               onClick={() => setOpen(false)}
             />
 
-            {/* PANEL */}
+            {/* FULLSCREEN PANEL */}
             <motion.div
               key="menu-panel"
+              id="mobile-menu"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 260, damping: 25 }}
-              className="fixed top-0 right-0 h-full w-[80%] bg-white shadow-xl z-50 p-10 flex flex-col items-center gap-10"
+              className="fixed inset-0 h-screen w-full bg-white z-[100] p-12 flex flex-col items-center gap-10 overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
             >
               {/* LOGO */}
               <Image
                 src="/logo.png"
                 alt="Flow — Human Flow for Digital Growth"
-                width={140}
+                width={150}
                 height={40}
                 className="h-auto w-auto"
               />
 
-              {/* LINKS */}
-              <ul className="flex flex-col gap-6 text-lg font-semibold text-brand-navy items-center w-full">
+              {/* MENU LINKS */}
+              <ul className="flex flex-col gap-6 text-xl font-semibold text-brand-navy items-center w-full">
                 {links.map((link) => {
                   const active = pathname === link.href;
                   return (
@@ -77,7 +91,9 @@ function NavbarMobileComponent() {
                         href={link.href}
                         onClick={() => setOpen(false)}
                         className={`w-full text-center py-3 rounded-xl transition ${
-                          active ? "bg-brand-navy text-white" : "hover:bg-gray-100"
+                          active
+                            ? "bg-brand-navy text-white"
+                            : "hover:bg-gray-100"
                         }`}
                       >
                         {link.name}
@@ -87,7 +103,7 @@ function NavbarMobileComponent() {
                 })}
               </ul>
 
-              {/* CTA CONTACT */}
+              {/* CONTACT CTA */}
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
