@@ -286,7 +286,7 @@ export default function ContactSection() {
                       
           </div>
 {/* SOCIAL ICONS OUTSIDE THE FORM */}
-<div className="hidden lg:flex justify-center mt-10">
+<div className="flex justify-center mt-10 gap-4">
   <div className="flex gap-6">
 
     <a href="https://www.facebook.com/profile.php?id=61585015283978" target="_blank" rel="noopener noreferrer">
