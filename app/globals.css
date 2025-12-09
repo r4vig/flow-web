@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  color-scheme: light !important;
+  background-color: #ffffff !important;
+  forced-color-adjust: none !important;
+}
+body {
+  background-color: #ffffff !important;
+  color: #112739 !important; /* tu brand-navy probablemente */
+}
+
+html {
+  color-scheme: light !important;
+  background-color: #ffffff !important;
+  forced-color-adjust: none !important;
+}
+
 :root {
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif;
