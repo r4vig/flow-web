@@ -155,7 +155,7 @@ export default function ContactSection() {
           <FadeIn delay={0.35}>
             <div className="relative mt-4 w-full h-[500px] md:h-[600px]">
               <Image
-                src="/america.png"
+                src="/americaa.png"
                 alt="Map"
                 fill
                 className="object-contain rounded-2xl shadow-xl"
@@ -293,8 +293,8 @@ export default function ContactSection() {
       <Image
         src="/icons/facebook.jpeg"
         alt="Facebook"
-        width={100}
-        height={100}
+        width={60}
+        height={60}
         className="hover:opacity-80 transition"
       />
     </a>
@@ -303,8 +303,8 @@ export default function ContactSection() {
       <Image
         src="/icons/whatsapp.jpeg"
         alt="WhatsApp"
-        width={100}
-        height={100}
+        width={60}
+        height={60}
         className="hover:opacity-80 transition"
       />
     </a>
@@ -313,8 +313,8 @@ export default function ContactSection() {
       <Image
         src="/icons/instagram.jpeg"
         alt="Instagram"
-        width={100}
-        height={100}
+        width={60}
+        height={60}
         className="hover:opacity-80 transition"
       />
     </a>
@@ -323,8 +323,8 @@ export default function ContactSection() {
       <Image
         src="/icons/linkedin.jpeg"
         alt="LinkedIn"
-        width={100}
-        height={100}
+        width={60}
+        height={60}
         className="hover:opacity-80 transition"
       />
     </a>
