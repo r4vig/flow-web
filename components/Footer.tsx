@@ -49,9 +49,13 @@ export default function Footer() {
               priority
             />
 
-            <p className="text-brand-navy/70 text-sm leading-relaxed max-w-xs">
+            <p className="text-xs text-brand-orange">
               FLOW LLC impulsa la expansión de compañías en Estados Unidos mediante
               equipos nearshore, procesos optimizados y soporte bilingüe continuo.
+            </p>
+            <p className= "text-brand-navy/70 text-sm leading-relaxed max-w-xs">
+              FLOW LLC drives the expansion of companies in the United States through 
+              nearshore teams, optimized processes, and continuous bilingual support.
             </p>
           </motion.div>
 
