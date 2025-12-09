@@ -1,93 +1,122 @@
-import "./globals.css";
-import { Poppins } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CookieBanner from "@/components/CookieBanner";
+"use client";
 
-// ------------------------------------
-// SEO GLOBAL
-// ------------------------------------
-export const metadata = {
-  metadataBase: new URL("https://flow-idg.com"), // ⬅ Cambia al dominio real
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, memo } from "react";
 
-  title: {
-    default: "FLOW – Human Flow for Digital Growth",
-    template: "%s | FLOW",
-  },
+const links = [
+  { name: "Home", href: "/" },
+  { name: "About us", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Contact", href: "/contact" },
+];
 
-  description:
-    "FLOW LLC impulsa la expansión de compañías en Estados Unidos mediante equipos nearshore, procesos optimizados y soporte bilingüe continuo.",
+function NavbarMobileComponent() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
-  keywords: [
-    "Nearshore",
-    "Logistics Support",
-    "Customer Service",
-    "Tracking",
-    "Bilingual Operations",
-    "Flow LLC",
-  ],
+  // Disable scrolling when menu is open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://flow-idg.com",
-    title: "FLOW – Human Flow for Digital Growth",
-    description:
-      "Operational support, logistics optimization and bilingual customer service for U.S. companies.",
-    siteName: "FLOW LLC",
-    images: [
-      {
-        url: "/og-image.jpeg",
-        width: 1200,
-        height: 630,
-        alt: "FLOW digital operations",
-      },
-    ],
-  },
-
-  twitter: {
-    card: "summary_large_image",
-    title: "FLOW – Human Flow for Digital Growth",
-    description:
-      "Operational growth and nearshore support for North American businesses.",
-    images: ["/og-image.jpeg"],
-  },
-};
-
-// ------------------------------------
-// FONTS
-// ------------------------------------
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-sans",
-  display: "swap",
-  preload: true,
-});
-
-// ------------------------------------
-// ROOT LAYOUT
-// ------------------------------------
-export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={poppins.variable}
-      suppressHydrationWarning
-    >
-      <body className="font-sans bg-white text-brand-navy antialiased">
-        {/* Navigation */}
-        <Navbar />
+    <>
+      {/* Hamburger Button */}
+      <button
+        onClick={() => setOpen(!open)}
+        aria-label="Toggle menu"
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        className="md:hidden flex flex-col gap-[6px] z-[60]"
+      >
+        <motion.span
+          animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+          className="w-6 h-[3px] bg-brand-navy rounded"
+        />
+        <motion.span
+          animate={open ? { opacity: 0 } : { opacity: 1 }}
+          className="w-6 h-[3px] bg-brand-navy rounded"
+        />
+        <motion.span
+          animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+          className="w-6 h-[3px] bg-brand-navy rounded"
+        />
+      </button>
 
-        {/* Main content */}
-        <main className="pt-24">{children}</main>
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* FULL WHITE BACKGROUND */}
+            <motion.div
+              key="full-bg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 bg-white z-40"
+            />
 
-        {/* Footer */}
-        <Footer />
+            {/* Slider Menu */}
+            <motion.div
+              key="menu"
+              id="mobile-menu"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 25 }}
+              className="fixed top-0 right-0 h-full w-full bg-white z-50 p-10 flex flex-col gap-10"
+            >
+              {/* Logo */}
+              <div className="flex justify-center w-full">
+                <Image
+                  src="/logo.png"
+                  alt="FLOW Logo"
+                  width={150}
+                  height={65}
+                  className="h-auto w-auto"
+                />
+              </div>
 
-        {/* Cookie Consent */}
-        <CookieBanner />
-      </body>
-    </html>
+              {/* Menu Items */}
+              <ul className="flex flex-col gap-6 text-xl font-semibold text-brand-navy text-center">
+                {links.map((link) => {
+                  const active = pathname === link.href;
+
+                  return (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        aria-current={active ? "page" : undefined}
+                        className={`block px-4 py-3 rounded-lg transition-all ${
+                          active
+                            ? "bg-brand-orange text-white"
+                            : "hover:bg-gray-100"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setOpen(false)}
+                className="text-brand-navy font-semibold mt-auto text-sm underline"
+              >
+                CLOSE
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
+
+export default memo(NavbarMobileComponent);
