@@ -67,7 +67,7 @@ export default function NavbarMobile() {
               src="/isotipoo.png"
               alt="Flow"
               width={130}
-              height={30}
+              height={50}
               priority
             />
 

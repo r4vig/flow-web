@@ -16,10 +16,10 @@ export default function Navbar() {
         {/* LOGO NUEVO */}
         <Link href="/" prefetch={true} className="flex items-center gap-3">
           <Image
-            src="/logooo.png"
+            src="/logoo.png"
             alt="Flow — Human Flow for Digital Growth"
-            width={130}
-            height={30}
+            width={160}
+            height={50}
             priority
             className="h-auto w-auto"
           />

@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
   "/hero/slide1.jpeg",
-  "/hero/slide2.jpeg",
-  "/hero/slide3.jpeg",
+  "/hero/slide2.png",
+  "/hero/slide3.png",
 ];
 
 export default function HeroRotator() {
