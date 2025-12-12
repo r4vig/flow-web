@@ -19,7 +19,7 @@ export default function Navbar() {
             src="/logooo.png"
             alt="Flow — Human Flow for Digital Growth"
             width={150}
-            height={50}
+            height={30}
             priority
             className="h-auto w-auto"
           />
