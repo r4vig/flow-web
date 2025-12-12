@@ -18,7 +18,7 @@ export default function Navbar() {
           <Image
             src="/logooo.png"
             alt="Flow — Human Flow for Digital Growth"
-            width={150}
+            width={130}
             height={30}
             priority
             className="h-auto w-auto"
