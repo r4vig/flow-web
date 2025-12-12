@@ -64,7 +64,7 @@ export default function NavbarMobile() {
 
             {/* Logo */}
             <Image
-              src="/isotipo.png"
+              src="/isotipoo.png"
               alt="Flow"
               width={160}
               height={60}

@@ -41,7 +41,7 @@ export default function Footer() {
             className="space-y-4"
           >
             <Image
-              src="/logo.png"
+              src="/logooo.png"
               alt="Flow — Human Flow for Digital Growth"
               width={150}
               height={50}
