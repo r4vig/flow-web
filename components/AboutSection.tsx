@@ -90,7 +90,7 @@ export default function AboutSection() {
         <FadeIn delay={0.1}>
           <div className="space-y-6 max-w-4xl mx-auto text-center">
             <h3 className="text-xl font-semibold text-brand-navy">
-              Who we are / Quiénes somos
+              Who we are
             </h3>
             <p className="text-brand-navy text-base leading-relaxed">
               FLOW LLC is a strategic services company that drives growth for
@@ -116,7 +116,7 @@ export default function AboutSection() {
         <FadeIn delay={0.2}>
           <div className="space-y-6 max-w-4xl mx-auto text-center">
             <h3 className="text-xl font-semibold text-brand-navy">
-              What we offer / Qué ofrecemos
+              What we offer
             </h3>
             <p className="text-brand-navy text-base leading-relaxed">
               We connect organizations with highly skilled, bilingual
@@ -141,7 +141,7 @@ export default function AboutSection() {
         <FadeIn delay={0.3}>
           <div className="space-y-6 max-w-4xl mx-auto text-center">
             <h3 className="text-xl font-semibold text-brand-navy">
-              How we work / Cómo trabajamos
+              How we work
             </h3>
             <p className="text-brand-navy text-base leading-relaxed">
               Our model combines technology, structured processes, and a deep
