@@ -20,11 +20,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const servicesOptions = [
-  "Proactive tracking and monitoring of orders and shipments",
-  "Reverse logistics, returns, and claims management",
-  "Customer support in English and Spanish",
-  "Logistics data analysis and operational strategy improvement",
-  "Logistics system management and TMS route optimization",
+  "Marketing & Digital Management Services",
+  "Logistics Services",
+  "Entry-Level Executive Recruitment",
   "Other",
 ];
 
@@ -259,7 +257,7 @@ export default function ContactSection() {
                   rows={4}
                   {...register("message")}
                   className="w-full px-3 py-3 border rounded-lg text-brand-navy border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/30 resize-none"
-                  placeholder="Tell us about your goals, logistics needs, volume, and countries involved."
+                  placeholder="Tell us more about your project, goals, logistics needs, or talent requirements."
                 />
                 {errors.message && <p className="text-xs text-red-500">{errors.message.message}</p>}
               </div>

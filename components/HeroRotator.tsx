@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const slides = [
-  "/hero/slide1.jpeg",
-  "/hero/slide2.png",
-  "/hero/slide3.png",
+  "/hero/slide1.png",
+  "/hero/slide2.jpeg",
+  "/hero/slide3.jpeg",
+  "/hero/slide4.jpeg"
 ];
 
 export default function HeroRotator() {

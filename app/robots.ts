@@ -4,6 +4,6 @@ export default function robots() {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://tu-dominio.com/sitemap.xml", // cambia esto al deploy
+    sitemap: "https://www.flowidg.com//sitemap.xml", // cambia esto al deploy
   };
 }

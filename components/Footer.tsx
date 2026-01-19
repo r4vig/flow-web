@@ -17,11 +17,9 @@ const footerLinks = [
   {
     title: "Services",
     items: [
-      { name: "Tracking & Monitoring", href: "/services" },
-      { name: "Reverse logistics", href: "/services" },
-      { name: "TMS optimization", href: "/services" },
-      { name: "Data analysis & BI", href: "/services" },
-      { name: "Bilingual support", href: "/services" },
+      { name: "Marketing & Digital Management Services", href: "/services" },
+      { name: "Logistics Services", href: "/services" },
+      { name: "Entry-Level Executive Recruitment", href: "/services" },
     ],
   },
 ];
@@ -49,13 +47,11 @@ export default function Footer() {
               priority
             />
 
-            <p className="text-xs text-brand-orange">
-              FLOW LLC impulsa la expansión de compañías en Estados Unidos mediante
-              equipos nearshore, procesos optimizados y soporte bilingüe continuo.
-            </p>
-            <p className= "text-brand-navy/70 text-sm leading-relaxed max-w-xs">
-              FLOW LLC drives the expansion of companies in the United States through 
-              nearshore teams, optimized processes, and continuous bilingual support.
+
+         <p className= "text-brand-navy/70 text-sm leading-relaxed max-w-xs">
+             {/* FLOW LLC helps U.S. companies scale by combining operational excellence, bilingual nearshore talent, 
+             and data‑driven digital strategy. We support logistics, marketing, and executive recruitment with integrated 
+             solutions that strengthen operations and accelerate growth.. */}
             </p>
           </motion.div>
 

@@ -1,10 +1,24 @@
+// components/Services.tsx
+
+"use client";
+
+import { useState } from "react";
 import Container from "@/components/Container";
 import SectionTitle from "@/components/SectionTitle";
-import ServiceCard from "@/components/ServiceCard";
-import { services } from "@/data/services";
 import Link from "next/link";
+import ServiceModal from "@/components/ServiceModal";
+import { services, type Service } from "@/data/services";
+import { Megaphone, Truck, Users } from "lucide-react";
+
+const ICONS: Record<Service["key"], any> = {
+  marketing: Megaphone,
+  logistics: Truck,
+  recruitment: Users,
+};
 
 export default function Services() {
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
+
   return (
     <section className="relative py-24 md:py-32 bg-gradient-to-b from-white via-white to-brand-navy/5">
       <div className="pointer-events-none absolute inset-x-0 -top-36 -z-10 opacity-35">
@@ -21,20 +35,51 @@ export default function Services() {
           />
 
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-orange">
-            Flow for logistics & nearshore operations
+            FLOW for business growth & operations
           </p>
 
           <p className="text-brand-navy/80 text-sm sm:text-base leading-relaxed">
-            We combine supply chain expertise, bilingual teams and technology
-            to give U.S. companies a reliable nearshore partner in Latin America.
+            We offer integrated services to help companies grow digitally,
+            optimize logistics, and recruit talent across Latin America. All
+            services are delivered bilingually and tailored to your business
+            stage.
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {services.map((service, index) => (
-            <ServiceCard key={service.id} service={service} index={index} />
-          ))}
+        {/* Service Blocks */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {services.map((service) => {
+            const Icon = ICONS[service.key];
+
+            return (
+              <article
+                key={service.key}
+                onClick={() => setSelectedService(service)}
+                className="cursor-pointer rounded-2xl bg-white p-6 shadow-lg hover:-translate-y-1 transition"
+              >
+                <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-orange/10 text-brand-orange">
+                  <Icon className="w-5 h-5" />
+                </div>
+
+                <div className="mt-3 space-y-1">
+                  <h3 className="text-brand-navy font-semibold">
+                    {service.titleEn}
+                  </h3>
+                  <p className="text-brand-orange text-sm font-semibold">
+                    {service.titleEs}
+                  </p>
+                </div>
+
+                <p className="text-brand-navy/80 text-sm leading-relaxed mt-2">
+                  {service.descriptionEn}
+                </p>
+
+                <p className="mt-3 text-xs text-brand-orange font-semibold">
+                  Click to see subservices
+                </p>
+              </article>
+            );
+          })}
         </div>
 
         {/* CTA */}
@@ -59,6 +104,13 @@ export default function Services() {
           </Link>
         </div>
       </Container>
+
+      {/* Modal */}
+      <ServiceModal
+        open={!!selectedService}
+        onClose={() => setSelectedService(null)}
+        service={selectedService}
+      />
     </section>
   );
 }
