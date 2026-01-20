@@ -138,15 +138,63 @@ export const services: Service[] = [
     ],
   },
   {
-    key: "recruitment",
-    titleEn: "Entry-Level Executive Recruitment",
-    titleEs: "Reclutamiento Ejecutivo Junior",
-    descriptionEn:
-      "Coming soon: talent acquisition services for bilingual junior executives across Latin America.",
-    descriptionEs:
-      "Próximamente: servicios de reclutamiento de talento ejecutivo junior bilingüe en América Latina.",
-    subservices: [
-      // Aquí podrás agregar los subservicios cuando el cliente te los envíe
-    ],
-  },
+  key: "recruitment",
+  titleEn: "Entry-Level Executive Recruitment",
+  titleEs: "Reclutamiento Ejecutivo Junior",
+  descriptionEn:
+    "We recruit and manage bilingual junior talent for U.S. companies, combining modern processes, technology, and human expertise. Our model reduces costs, accelerates hiring, and ensures efficient integration with ongoing support.",
+  descriptionEs:
+    "Seleccionamos y gestionamos talento junior bilingüe para empresas en Estados Unidos, combinando procesos modernos, tecnología e inteligencia humana. Nuestro modelo reduce costos, acelera contrataciones y garantiza una integración eficiente con acompañamiento continuo.",
+  subservices: [
+    {
+      id: "recruitment-junior-talent",
+      titleEn: "Recruitment of Bilingual Junior Talent",
+      titleEs: "Reclutamiento de Talento Junior Bilingüe",
+      descriptionEn:
+        "Identification and selection of high‑potential bilingual professionals across Latin America.",
+    },
+    {
+      id: "recruitment-outsourcing",
+      titleEn: "Remote Hiring & Outsourcing",
+      titleEs: "Contratación Remota y Outsourcing",
+      descriptionEn:
+        "Flexible hiring models that reduce operational risk and accelerate team scalability.",
+    },
+    {
+      id: "recruitment-assessments",
+      titleEn: "Technical & Soft‑Skills Assessments",
+      titleEs: "Evaluación Técnica y de Competencias Blandas",
+      descriptionEn:
+        "Comprehensive evaluations to ensure candidates meet both role requirements and cultural fit.",
+    },
+    {
+      id: "recruitment-supervision",
+      titleEn: "Supervision & Quality Control",
+      titleEs: "Supervisión y Control de Calidad",
+      descriptionEn:
+        "Ongoing performance monitoring, structured workflows, and support for remote efficiency.",
+    },
+    {
+      id: "recruitment-onboarding",
+      titleEn: "Onboarding & Early‑Stage Support",
+      titleEs: "Onboarding y Acompañamiento Inicial",
+      descriptionEn:
+        "Guided integration process to ensure smooth adaptation and long‑term retention.",
+    },
+    {
+      id: "recruitment-roles",
+      titleEn: "Administrative, Support & Sales Roles",
+      titleEs: "Roles Administrativos, de Soporte y Ventas",
+      descriptionEn:
+        "Virtual assistants, customer support, sales assistants, marketing support, and more.",
+    },
+    {
+      id: "recruitment-digital-tools",
+      titleEn: "Junior Talent with Digital Tool Proficiency",
+      titleEs: "Talento Junior con Manejo de Herramientas Digitales",
+      descriptionEn:
+        "Professionals trained in modern digital tools to support operational and commercial teams.",
+    },
+  ],
+}
 ];
