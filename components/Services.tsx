@@ -75,7 +75,7 @@ export default function Services() {
                 </p>
 
                 <p className="mt-3 text-xs text-brand-orange font-semibold">
-                  Click to see subservices
+                  View expanded description
                 </p>
               </article>
             );
