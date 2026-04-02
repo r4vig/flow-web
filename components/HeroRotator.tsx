@@ -7,7 +7,9 @@ const slides = [
   "/hero/slide1.png",
   "/hero/slide2.jpeg",
   "/hero/slide3.jpeg",
-  "/hero/slide4.jpeg"
+  "/hero/slide4.jpeg",
+  "/hero/slide5.jpeg",
+  "/hero/slide6.jpeg",
 ];
 
 export default function HeroRotator() {

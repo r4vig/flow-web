@@ -6,7 +6,7 @@ export default function Hero() {
           Human Flow Digital Growth
         </h1>
         <p className="text-brand-orange text-xl mt-4 tracking-wide">
-          IMÁGENES Y VIDEOS ROTATIVOS
+        
         </p>
       </div>
     </section>

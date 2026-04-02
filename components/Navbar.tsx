@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
+import GoogleTranslate from "./GoogleTranslate"; // <--- Importamos el traductor
 
 export default function Navbar() {
   return (
@@ -13,11 +14,10 @@ export default function Navbar() {
         role="navigation"
         aria-label="Main Navigation"
       >
-        {/* LOGO NUEVO */}
         <Link href="/" prefetch={true} className="flex items-center gap-3">
           <Image
             src="/logooooo.png"
-            alt="Flow — Human Flow for Digital Growth"
+            alt="Flow"
             width={160}
             height={50}
             priority
@@ -25,7 +25,14 @@ export default function Navbar() {
           />
         </Link>
 
-        <NavbarDesktop />
+        {/* En Desktop lo ponemos a la derecha de los links */}
+        <div className="flex items-center gap-8">
+          <NavbarDesktop />
+          <div className="hidden md:block">
+            <GoogleTranslate />
+          </div>
+        </div>
+
         <NavbarMobile />
       </nav>
     </header>

@@ -1,5 +1,3 @@
-// components/ServiceModal.tsx
-
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
@@ -28,6 +26,9 @@ export default function ServiceModal({ open, onClose, service }: Props) {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="service-modal-title"
         >
           {/* Close button */}
           <button
@@ -38,33 +39,33 @@ export default function ServiceModal({ open, onClose, service }: Props) {
             <X className="w-5 h-5" />
           </button>
 
-          {/* Titles */}
-          <h2 className="text-xl md:text-2xl font-semibold text-brand-navy">
-            {service.titleEn}
+          {/* Title */}
+          <h2
+            id="service-modal-title"
+            className="text-brand-orange font-bold text-xl md:text-2xl"
+          >
+            {service.title}
           </h2>
-          <p className="text-brand-orange font-semibold text-sm mb-3">
-            {service.titleEs}
-          </p>
 
           {/* Description */}
-          <p className="text-brand-navy/80 text-sm leading-relaxed mb-5">
-            {service.descriptionEn}
+          <p className="text-brand-navy text-sm leading-relaxed mt-3 mb-6">
+            {service.description}
           </p>
 
           {/* Subservices */}
-          {service.subservices.length > 0 ? (
+          {service.subservices && service.subservices.length > 0 ? (
             <div className="space-y-3 max-h-80 overflow-y-auto pr-1">
               {service.subservices.map((sub) => (
                 <div
                   key={sub.id}
                   className="p-3 rounded-xl bg-brand-navy/5 hover:bg-brand-orange/10 transition"
                 >
-                  <p className="font-semibold text-brand-navy">
-                    {sub.titleEn}
-                  </p>
-                  <p className="text-sm text-brand-orange">{sub.titleEs}</p>
-                  <p className="text-xs text-brand-navy/70 mt-1">
-                    {sub.descriptionEn}
+                  {/* Sub-title */}
+                  <p className="font-bold text-brand-navy">{sub.title}</p>
+
+                  {/* Sub-description */}
+                  <p className="text-xs text-brand-navy/80 mt-1">
+                    {sub.description}
                   </p>
                 </div>
               ))}

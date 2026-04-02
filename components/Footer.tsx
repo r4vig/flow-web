@@ -94,11 +94,11 @@ export default function Footer() {
               <li>
                 📧 Email:{" "}
                 <a
-                  href="mailto:flowidg@hotmail.com"
+                  href="mailto:flowidg@proton.me"
                   className="text-brand-orange font-medium hover:underline"
                   aria-label="Email contact"
                 >
-                  flowidg@hotmail.com
+                  flowidg@proton.me
                 </a>
               </li>
               <li>📍 Worldwide </li>

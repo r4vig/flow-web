@@ -9,6 +9,7 @@ import Link from "next/link";
 import ServiceModal from "@/components/ServiceModal";
 import { services, type Service } from "@/data/services";
 import { Megaphone, Truck, Users } from "lucide-react";
+import PromoModal from "@/components/PromoModal"
 
 const ICONS: Record<Service["key"], any> = {
   marketing: Megaphone,
@@ -26,25 +27,23 @@ export default function Services() {
       </div>
 
       <Container className="space-y-16">
-        {/* Header */}
-        <div className="max-w-3xl space-y-6">
-          <SectionTitle
-            titleEn="Our services"
-            titleEs="Nuestros servicios"
-            align="left"
-          />
+<div className="max-w-3xl space-y-6">
+  <SectionTitle
+    title="Our services"
 
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-orange">
-            FLOW for business growth & operations
-          </p>
+    align="left"
+  />
 
-          <p className="text-brand-navy/80 text-sm sm:text-base leading-relaxed">
-            We offer integrated services to help companies grow digitally,
-            optimize logistics, and recruit talent across Latin America. All
-            services are delivered bilingually and tailored to your business
-            stage.
-          </p>
-        </div>
+  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-orange">
+    FLOW for business growth & operations
+  </p>
+
+  <p className="text-brand-navy text-sm sm:text-base leading-relaxed">
+    We offer integrated services to help companies grow digitally,
+    optimize logistics, and recruit talent across Latin America. Services
+    are tailored to your business stage.
+  </p>
+</div>
 
         {/* Service Blocks */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -55,24 +54,29 @@ export default function Services() {
               <article
                 key={service.key}
                 onClick={() => setSelectedService(service)}
-                className="cursor-pointer rounded-2xl bg-white p-6 shadow-lg hover:-translate-y-1 transition"
+                className="cursor-pointer rounded-2xl bg-white p-6 shadow-lg hover:-translate-y-1 transition h-full flex flex-col justify-between"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") setSelectedService(service);
+                }}
+                aria-label={`Open details for ${service.title}`}
               >
-                <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-orange/10 text-brand-orange">
-                  <Icon className="w-5 h-5" />
-                </div>
+                <div>
+                  <div className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-brand-orange/10 text-brand-orange">
+                    <Icon className="w-5 h-5" aria-hidden />
+                  </div>
 
-                <div className="mt-3 space-y-1">
-                  <h3 className="text-brand-navy font-semibold">
-                    {service.titleEn}
-                  </h3>
-                  <p className="text-brand-orange text-sm font-semibold">
-                    {service.titleEs}
+                  <div className="mt-3 space-y-1">
+                    {/* Title: orange, bold (matches About) */}
+                    <h3 className="text-brand-navy font-bold text-lg">{service.title}</h3>
+                  </div>
+
+                  {/* Description: blue normal */}
+                  <p className="text-brand-navy text-sm leading-relaxed mt-2">
+                    {service.description}
                   </p>
                 </div>
-
-                <p className="text-brand-navy/80 text-sm leading-relaxed mt-2">
-                  {service.descriptionEn}
-                </p>
 
                 <p className="mt-3 text-xs text-brand-orange font-semibold">
                   View expanded description

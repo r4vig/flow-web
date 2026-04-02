@@ -1,11 +1,13 @@
+// components/SectionTitle.tsx
+
 "use client";
 
 import { memo } from "react";
 import { motion } from "framer-motion";
 
 type Props = {
-  titleEn: string;
-  titleEs?: string;
+  title: string;
+  subtitle?: string;
   align?: "left" | "center" | "right";
 };
 
@@ -15,7 +17,7 @@ const alignClasses: Record<NonNullable<Props["align"]>, string> = {
   right: "items-end text-right",
 };
 
-function SectionTitleComponent({ titleEn, titleEs, align = "left" }: Props) {
+function SectionTitleComponent({ title, subtitle, align = "left" }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -29,13 +31,15 @@ function SectionTitleComponent({ titleEn, titleEs, align = "left" }: Props) {
         <span>Flow</span>
       </div>
 
-      <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-brand-navy">
-        {titleEn}
+      {/* Title: orange, bold */}
+      <h2 className="text-2xl sm:text-3xl md:text-4xl text-brand-orange font-bold">
+        {title}
       </h2>
 
-      {titleEs && (
-        <p className="text-sm sm:text-base text-brand-navy/70">
-          {titleEs}
+      {/* Subtitle: blue, bold */}
+      {subtitle && (
+        <p className="text-sm sm:text-base text-brand-navy font-bold">
+          {subtitle}
         </p>
       )}
     </motion.div>

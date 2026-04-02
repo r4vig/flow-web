@@ -1,8 +1,10 @@
+// app/layout.tsx
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
+import PromoModal from "@/components/PromoModal"; // <--- Importamos el nuevo modal
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,8 +19,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={poppins.variable}
       suppressHydrationWarning
     >
-      {/* Navbar ALWAYS as top layer */}
       <body className="relative bg-white text-brand-navy antialiased">
+        {/* Navbar ALWAYS as top layer */}
         <Navbar />
 
         {/* Wrapper to push content below navbar */}
@@ -27,7 +29,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         <Footer />
+        
+        {/* Banners y Modales Globales */}
         <CookieBanner />
+        <PromoModal /> {/* <--- Lo agregamos aquí */}
+        
       </body>
     </html>
   );
