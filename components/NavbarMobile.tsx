@@ -20,7 +20,11 @@ export default function NavbarMobile() {
 
   useEffect(() => {
     // Bloquea el scroll cuando el menú está abierto
-    document.body.style.overflow = open ? "hidden" : "";
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
@@ -40,7 +44,7 @@ export default function NavbarMobile() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }} // Animación lateral más natural
+            initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
@@ -59,9 +63,9 @@ export default function NavbarMobile() {
               <Image src="/isotipoo.png" alt="Flow" width={80} height={80} priority />
             </div>
 
-            {/* GOOGLE TRANSLATE CONTAINER - Ajustado para visibilidad */}
-            <div className="bg-white rounded-xl px-4 py-2 flex items-center justify-center shadow-lg border-2 border-brand-orange/20 pointer-events-auto">
-               <GoogleTranslate />
+            {/* TRADUCTOR MÓVIL: Contenedor blanco optimizado */}
+            <div className="bg-white rounded-full px-2 py-1 flex items-center justify-center shadow-lg border border-white pointer-events-auto min-w-[160px]">
+               <GoogleTranslate isMobile={true} />
             </div>
 
             {/* NAV LINKS */}
