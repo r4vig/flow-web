@@ -4,56 +4,64 @@ import { useEffect } from "react";
 import { Globe } from "lucide-react";
 
 interface Props {
+  containerId: string;
   isMobile?: boolean;
 }
 
-export default function GoogleTranslate({ isMobile }: Props) {
+export default function GoogleTranslate({ containerId, isMobile }: Props) {
   useEffect(() => {
-    // Definir la función global antes de cargar el script
-    (window as any).googleTranslateElementInit = () => {
-      new (window as any).google.translate.TranslateElement(
-        {
-          pageLanguage: "en",
-          includedLanguages: "en,es,pt,fr,de", 
-          autoDisplay: false,
-          // El diseño "SIMPLE" es el que mejor funciona en móvil
-          layout: (window as any).google.translate.TranslateElement.InlineLayout.SIMPLE,
-        },
-        "google_translate_element"
-      );
+    const initTranslate = () => {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      // Limpiamos para evitar duplicados al navegar
+      container.innerHTML = ""; 
+
+      if ((window as any).google?.translate?.TranslateElement) {
+        new (window as any).google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            // Idiomas específicos
+            includedLanguages: "en,es,fr,it,pt,de", 
+            // HORIZONTAL es más fácil de limpiar con CSS que SIMPLE
+            layout: (window as any).google.translate.TranslateElement.InlineLayout.HORIZONTAL,
+            autoDisplay: false,
+          },
+          containerId
+        );
+      }
     };
 
-    // Evitar duplicidad del script
-    const existingScript = document.getElementById("google-translate-script");
-    if (!existingScript) {
-      const addScript = document.createElement("script");
-      addScript.id = "google-translate-script";
-      addScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      addScript.async = true;
-      document.body.appendChild(addScript);
-    } else if ((window as any).google && (window as any).google.translate) {
-      // Si el script ya existe, reinicializar manualmente
-      (window as any).googleTranslateElementInit();
+    if (!(window as any).googleTranslateElementInit) {
+      (window as any).googleTranslateElementInit = initTranslate;
+      const script = document.createElement("script");
+      script.id = "google-translate-script";
+      script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      document.body.appendChild(script);
+    } else {
+      // Delay para asegurar que el DOM cargó el nuevo ID
+      setTimeout(initTranslate, 500);
     }
-  }, []);
+  }, [containerId]);
 
   return (
     <div 
-      className={`flex items-center gap-2 px-3 py-1.5 transition-all group pointer-events-auto
+      className={`flex items-center gap-2 px-3 py-1.5 transition-all pointer-events-auto relative z-[9999]
         ${isMobile 
-          ? "bg-transparent" // El fondo blanco ya lo pone el NavbarMobile
+          ? "bg-transparent" 
           : "bg-white border border-gray-100 rounded-full shadow-sm hover:border-brand-orange"
         }`}
     >
       <Globe 
-        size={16} 
-        className={`${isMobile ? "text-brand-orange" : "text-brand-orange"} group-hover:rotate-12 transition-transform`} 
+        size={18} 
+        className="text-brand-orange shrink-0 group-hover:rotate-12 transition-transform" 
       />
       
-      {/* Contenedor del widget real de Google */}
+      {/* El contenedor donde Google inyecta el selector */}
       <div 
-        id="google_translate_element" 
-        className="flex items-center justify-center min-h-[24px] min-w-[100px]"
+        id={containerId} 
+        className="google-translate-container flex items-center justify-center min-w-[130px] min-h-[24px]"
       ></div>
     </div>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import NavbarDesktop from "./NavbarDesktop";
 import NavbarMobile from "./NavbarMobile";
-import GoogleTranslate from "./GoogleTranslate"; // <--- Importamos el traductor
+import GoogleTranslate from "./GoogleTranslate";
 
 export default function Navbar() {
   return (
@@ -25,14 +25,17 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* En Desktop lo ponemos a la derecha de los links */}
+        {/* Contenedor de navegación y herramientas */}
         <div className="flex items-center gap-8">
           <NavbarDesktop />
+          
+          {/* TRADUCTOR ESCRITORIO: Usamos un ID único para evitar conflictos con el móvil */}
           <div className="hidden md:block">
-            <GoogleTranslate />
+            <GoogleTranslate containerId="gt-desktop" />
           </div>
         </div>
 
+        {/* El NavbarMobile ya tiene internamente el <GoogleTranslate containerId="gt-mobile" /> */}
         <NavbarMobile />
       </nav>
     </header>

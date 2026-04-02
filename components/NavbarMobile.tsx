@@ -19,21 +19,17 @@ export default function NavbarMobile() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Bloquea el scroll cuando el menú está abierto
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    // Bloquea el scroll para que el usuario no se mueva del menú
+    document.body.style.overflow = open ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
   return (
     <>
-      {/* HAMBURGER BUTTON */}
+      {/* BOTÓN HAMBURGUESA */}
       <button 
         onClick={() => setOpen(true)} 
-        className="md:hidden z-[1000000] flex flex-col gap-[6px] p-2"
+        className="md:hidden z-[1000] flex flex-col gap-[6px] p-2"
         aria-label="Open Menu"
       >
         <span className="w-7 h-[3px] bg-brand-navy rounded" />
@@ -44,48 +40,62 @@ export default function NavbarMobile() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-brand-navy text-white flex flex-col items-center justify-center gap-10 z-[2000000] h-screen w-screen"
+            className="fixed inset-0 bg-brand-navy text-white flex flex-col items-center justify-start pt-20 gap-12 z-[2000000] h-screen w-screen overflow-y-auto"
           >
-            {/* CLOSE BUTTON */}
+            {/* BOTÓN CERRAR */}
             <button 
               onClick={() => setOpen(false)} 
-              className="absolute top-6 right-6 text-5xl font-light hover:text-brand-orange transition"
+              className="absolute top-6 right-8 text-5xl font-light hover:text-brand-orange transition"
             >
               ×
             </button>
 
-            {/* LOGO */}
-            <div className="mb-4">
-              <Image src="/isotipoo.png" alt="Flow" width={80} height={80} priority />
-            </div>
+            {/* LOGO SUPERIOR */}
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Image src="/isotipoo.png" alt="Flow" width={70} height={70} priority />
+            </motion.div>
 
-            {/* TRADUCTOR MÓVIL: Contenedor blanco optimizado */}
-            <div className="bg-white rounded-full px-2 py-1 flex items-center justify-center shadow-lg border border-white pointer-events-auto min-w-[160px]">
-               <GoogleTranslate isMobile={true} />
-            </div>
+            {/* CONTENEDOR DEL TRADUCTOR */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white rounded-2xl px-2 py-1 shadow-xl flex items-center justify-center min-w-[180px] pointer-events-auto"
+            >
+               <GoogleTranslate containerId="gt-mobile" isMobile={true} />
+            </motion.div>
 
-            {/* NAV LINKS */}
-            <ul className="flex flex-col gap-8 text-3xl font-bold text-center">
-              {links.map((link) => (
-                <li key={link.name}>
-                  <Link 
-                    href={link.href} 
-                    onClick={() => setOpen(false)}
-                    className={`${
-                      pathname === link.href 
-                        ? "text-brand-orange" 
-                        : "text-white hover:text-brand-orange/80"
-                    } transition-colors duration-300`}
+            {/* LINKS DE NAVEGACIÓN */}
+            <nav className="w-full">
+              <ul className="flex flex-col items-center gap-8">
+                {links.map((link, index) => (
+                  <motion.li 
+                    key={link.name}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 + index * 0.1 }}
                   >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <Link 
+                      href={link.href} 
+                      onClick={() => setOpen(false)}
+                      className={`text-3xl font-bold transition-colors ${
+                        pathname === link.href ? "text-brand-orange" : "text-white"
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

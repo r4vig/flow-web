@@ -14,7 +14,7 @@ body {
   background: #ffffff !important;
   color: #112739 !important;
   @apply bg-white text-brand-navy antialiased;
-  top: 0px !important; /* Fix crítico para Google Translate */
+  top: 0px !important; 
 }
 
 /* Previene inversión de color en navegadores móviles */
@@ -37,58 +37,51 @@ body {
   hover:bg-[#e28a36] disabled:opacity-70 disabled:cursor-not-allowed transition;
 }
 
-/* --- 🌐 GOOGLE TRANSLATE: REVISIÓN DEFINITIVA --- */
+/* --- 🌐 LIMPIEZA TOTAL DE GOOGLE TRANSLATE --- */
 
-/* 1. Ocultar elementos basura (Banners, tooltips y logos) */
-.goog-te-banner-frame.skiptranslate, 
-.skiptranslate[style*="visibility: visible"],
-#goog-gt-tt, 
+/* 1. Ocultar el logo de Google, la "G" y el marco blanco extra */
+.goog-te-gadget-simple, 
+.goog-te-gadget-simple img, 
+.goog-te-gadget-icon,
+.goog-logo-link,
+.goog-te-banner-frame,
+#goog-gt-tt,
 .goog-te-balloon-frame,
-.goog-te-gadget span, 
-.goog-te-gadget img,
-.goog-logo-link {
+.goog-te-gadget span {
   display: none !important;
 }
 
-/* 2. Limpieza del contenedor del gadget */
+/* 2. Limpiar el contenedor para que no tenga bordes ni fondos raros */
 .goog-te-gadget {
-  color: transparent !important;
   font-size: 0 !important;
-  line-height: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  color: transparent !important;
+  background: transparent !important;
+  border: none !important;
 }
 
-/* 3. Estilo del Selector (Dropdown) - Desktop y Mobile */
+/* 3. Estilo del Selector (Dropdown) - ¡Agrandado y Limpio! */
 .goog-te-combo {
-  @apply bg-transparent text-brand-navy font-bold text-[13px] outline-none border-none cursor-pointer uppercase;
+  @apply bg-transparent text-brand-navy font-bold text-[14px] uppercase !important;
   font-family: var(--font-sans) !important;
-  margin: 0 !important;
-  padding: 5px !important;
-  min-width: 120px;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  min-width: 140px !important; /* Evita que se vea minúsculo */
 }
 
-/* 4. FIX DE CAPAS (Z-INDEX) PARA MÓVIL */
-/* Esto asegura que la lista de idiomas flote sobre el menú azul */
-.goog-te-menu-frame {
-  z-index: 100000000 !important; 
-  box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
-}
-
-/* 5. Ajuste para cuando el widget está dentro del botón blanco en móvil */
-#google_translate_element {
+/* 4. Fix para el contenedor del componente (Desktop y Mobile) */
+.google-translate-container {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  height: 100% !important;
-  width: 100% !important;
+  background: transparent !important;
 }
 
-#google_translate_element select {
-  color: #d17f32 !important; /* Texto naranja en el móvil para que resalte */
-  text-align: center;
-  font-size: 14px !important;
+/* 5. Z-INDEX MÁXIMO para el menú que se despliega */
+.goog-te-menu-frame {
+  z-index: 2147483647 !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
 }
 
 /* Quitar resaltado azul de textos traducidos */
