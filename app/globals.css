@@ -80,3 +80,27 @@ body {
   background: none !important;
   box-shadow: none !important;
 }
+/* --- FIX GOOGLE TRANSLATE MOBILE --- */
+
+/* Forzamos que el panel de idiomas esté por encima del Navbar (2.000.000) */
+.goog-te-menu-frame {
+  z-index: 9999999 !important; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+}
+
+/* Evita que Google mueva el diseño hacia abajo con su banner */
+body {
+  top: 0 !important;
+}
+.skiptranslate > iframe {
+  display: none !important;
+}
+
+/* Ajuste visual para el widget dentro del fondo blanco del menú */
+#google_translate_element select {
+  background: transparent !important;
+  color: #112739 !important; /* Tu azul brand-navy */
+  border: none !important;
+  font-weight: 600 !important;
+  outline: none !important;
+}
