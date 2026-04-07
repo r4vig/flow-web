@@ -4,7 +4,8 @@ import { Poppins } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
-import PromoModal from "@/components/PromoModal"; // <--- Importamos el nuevo modal
+import PromoModal from "@/components/PromoModal";
+import FloatingTranslate from "@/components/FloatingTranslate"; // <--- Importamos el nuevo traductor flotante
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -32,7 +33,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         
         {/* Banners y Modales Globales */}
         <CookieBanner />
-        <PromoModal /> {/* <--- Lo agregamos aquí */}
+        <PromoModal />
+        
+        {/* --- TRADUCTOR FLOTANTE PARA MÓVIL --- */}
+        {/* Se renderiza aquí para evitar conflictos con el overflow del Navbar */}
+        <FloatingTranslate /> 
         
       </body>
     </html>

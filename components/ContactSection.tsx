@@ -117,8 +117,8 @@ export default function ContactSection() {
                 id: "email",
                 icon: Mail,
                 title: "Email",
-                text: "flowidg@pm.me",
-                link: "mailto:flowidg@pm.me",
+                text: "flowidg@proton.me",
+                link: "mailto:flowidg@proton.me",
               },
               {
                 id: "phone",

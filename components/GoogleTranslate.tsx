@@ -22,7 +22,7 @@ export default function GoogleTranslate({ containerId, isMobile }: Props) {
           {
             pageLanguage: "en",
             // Idiomas específicos
-            includedLanguages: "en,es,fr,it,pt,de", 
+            includedLanguages: "en,es,fr", 
             // HORIZONTAL es más fácil de limpiar con CSS que SIMPLE
             layout: (window as any).google.translate.TranslateElement.InlineLayout.HORIZONTAL,
             autoDisplay: false,
