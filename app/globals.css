@@ -37,9 +37,10 @@ body {
   hover:bg-[#e28a36] disabled:opacity-70 disabled:cursor-not-allowed transition;
 }
 
-/* --- 🌐 LIMPIEZA TOTAL DE GOOGLE TRANSLATE --- */
+/* --- 🌐 GOOGLE TRANSLATE: CONFIGURACIÓN UNIFICADA --- */
 
-/* 1. Ocultar el logo de Google, la "G" y el marco blanco extra */
+/* 1. Limpieza de interfaz (Banners, Logos, Basura) */
+/* Agregamos selectores para fulminar el "Powered by" */
 .goog-te-gadget-simple, 
 .goog-te-gadget-simple img, 
 .goog-te-gadget-icon,
@@ -47,19 +48,13 @@ body {
 .goog-te-banner-frame,
 #goog-gt-tt,
 .goog-te-balloon-frame,
-.goog-te-gadget span {
+.goog-te-gadget span,
+.goog-te-gadget img,
+.skiptranslate iframe {
   display: none !important;
 }
 
-/* 2. Limpiar el contenedor para que no tenga bordes ni fondos raros */
-.goog-te-gadget {
-  font-size: 0 !important;
-  color: transparent !important;
-  background: transparent !important;
-  border: none !important;
-}
-
-/* 3. Estilo del Selector (Dropdown) - ¡Agrandado y Limpio! */
+/* 2. El Selector (Dropdown) - Estilo base para Web y Móvil */
 .goog-te-combo {
   @apply bg-transparent text-brand-navy font-bold text-[14px] uppercase !important;
   font-family: var(--font-sans) !important;
@@ -67,29 +62,54 @@ body {
   outline: none !important;
   cursor: pointer !important;
   padding: 4px !important;
-  min-width: 140px !important; /* Evita que se vea minúsculo */
+  min-width: 140px !important;
+  position: relative;
+  z-index: 10;
 }
 
-/* 4. Fix para el contenedor del componente (Desktop y Mobile) */
-.google-translate-container {
+/* 3. Menú Desplegable (Lo que aparece al hacer clic) */
+.goog-te-menu-frame, 
+body > .skiptranslate {
+  z-index: 2147483647 !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+  bottom: 100px !important; 
+  top: auto !important;
+}
+
+/* 4. Fix para el contenedor y eliminación de texto "Powered by" */
+.goog-te-gadget {
+  font-size: 0 !important; /* Mata el texto "Powered by" */
+  color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  pointer-events: none; /* Que el contenedor no estorbe */
+}
+
+/* El combo sí debe recibir clics */
+.goog-te-gadget .goog-te-combo {
+  pointer-events: auto !important;
+}
+
+/* 5. Fix específico para el flotante de Móvil */
+#gt-floating {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  background: transparent !important;
+  pointer-events: auto !important;
 }
 
-/* 5. Z-INDEX MÁXIMO para el menú que se despliega */
-.goog-te-menu-frame {
-  z-index: 2147483647 !important;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
+#gt-floating .goog-te-combo {
+  background: white !important;
+  border-radius: 9999px !important;
+  width: 100% !important;
 }
 
-/* Quitar resaltado azul de textos traducidos */
+/* 6. Utilidades */
 .goog-text-highlight {
   background: none !important;
   box-shadow: none !important;
 }
-/* Animación sutil para el botón flotante */
+
 @keyframes bounce-subtle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
@@ -97,53 +117,4 @@ body {
 
 .animate-bounce-subtle {
   animation: bounce-subtle 3s infinite ease-in-out;
-}
-
-/* FIX: Si el botón está abajo, forzamos a que el menú de Google abra hacia ARRIBA */
-.goog-te-menu-frame {
-  bottom: 80px !important;
-  top: auto !important;
-}
-
-/* Estilo extra para el selector en modo flotante */
-#gt-floating .goog-te-combo {
-  font-size: 14px !important;
-  width: 100px !important;
-  min-width: 100px !important;
-}
-/* --- 🌐 FIX RADICAL PARA MÓVIL --- */
-
-/* 1. Asegurar que el contenedor móvil TENGA tamaño y sea clickeable */
-#gt-floating {
-  display: block !important;
-  visibility: visible !important;
-  min-width: 130px !important;
-  min-height: 30px !important;
-  pointer-events: auto !important;
-}
-
-/* 2. Forzar que el selector de Google se dibuje */
-#gt-floating .goog-te-combo {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  color: #112739 !important;
-  font-size: 14px !important;
-  width: 100% !important;
-  background: white !important;
-}
-
-/* 3. EL TRUCO MAESTRO: Google crea un iframe para el menú al final del BODY. 
-   Tenemos que buscarlo y traerlo al frente de todo. */
-body > .skiptranslate,
-iframe.goog-te-menu-frame {
-  z-index: 2147483647 !important; /* Más que el modal */
-  pointer-events: auto !important;
-  display: block !important;
-}
-
-/* 4. Si el botón está abajo, el menú debe abrir hacia ARRIBA */
-iframe.goog-te-menu-frame.skiptranslate {
-    bottom: 100px !important;
-    top: auto !important;
 }
