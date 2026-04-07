@@ -111,3 +111,39 @@ body {
   width: 100px !important;
   min-width: 100px !important;
 }
+/* --- 🌐 FIX RADICAL PARA MÓVIL --- */
+
+/* 1. Asegurar que el contenedor móvil TENGA tamaño y sea clickeable */
+#gt-floating {
+  display: block !important;
+  visibility: visible !important;
+  min-width: 130px !important;
+  min-height: 30px !important;
+  pointer-events: auto !important;
+}
+
+/* 2. Forzar que el selector de Google se dibuje */
+#gt-floating .goog-te-combo {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #112739 !important;
+  font-size: 14px !important;
+  width: 100% !important;
+  background: white !important;
+}
+
+/* 3. EL TRUCO MAESTRO: Google crea un iframe para el menú al final del BODY. 
+   Tenemos que buscarlo y traerlo al frente de todo. */
+body > .skiptranslate,
+iframe.goog-te-menu-frame {
+  z-index: 2147483647 !important; /* Más que el modal */
+  pointer-events: auto !important;
+  display: block !important;
+}
+
+/* 4. Si el botón está abajo, el menú debe abrir hacia ARRIBA */
+iframe.goog-te-menu-frame.skiptranslate {
+    bottom: 100px !important;
+    top: auto !important;
+}
