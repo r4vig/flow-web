@@ -37,10 +37,14 @@ body {
   hover:bg-[#e28a36] disabled:opacity-70 disabled:cursor-not-allowed transition;
 }
 
-/* --- 🌐 GOOGLE TRANSLATE: CONFIGURACIÓN UNIFICADA --- */
+/* --- 🌐 GOOGLE TRANSLATE: SOLUCIÓN DEFINITIVA --- */
 
-/* 1. Limpieza de interfaz (Banners, Logos, Basura) */
-/* Agregamos selectores para fulminar el "Powered by" */
+/* 1. Eliminación radical de basura (Logo, "G", Powered by) */
+.goog-te-gadget {
+  font-size: 0 !important;
+  color: transparent !important;
+}
+
 .goog-te-gadget-simple, 
 .goog-te-gadget-simple img, 
 .goog-te-gadget-icon,
@@ -54,57 +58,56 @@ body {
   display: none !important;
 }
 
-/* 2. El Selector (Dropdown) - Estilo base para Web y Móvil */
+/* 2. El Selector (Dropdown) - Estilo para Desktop y Mobile */
 .goog-te-combo {
-  @apply bg-transparent text-brand-navy font-bold text-[14px] uppercase !important;
+  @apply bg-transparent text-brand-navy font-bold text-[13px] uppercase !important;
   font-family: var(--font-sans) !important;
   border: none !important;
   outline: none !important;
   cursor: pointer !important;
-  padding: 4px !important;
-  min-width: 140px !important;
-  position: relative;
-  z-index: 10;
+  padding: 2px !important;
+  min-width: 130px !important;
+  display: inline-block !important;
+  visibility: visible !important;
 }
 
-/* 3. Menú Desplegable (Lo que aparece al hacer clic) */
+/* 3. Menú de Idiomas (El que se abre al hacer clic) */
+/* Forzamos que flote sobre todo, especialmente en móvil */
 .goog-te-menu-frame, 
 body > .skiptranslate {
   z-index: 2147483647 !important;
   box-shadow: 0 10px 40px rgba(0,0,0,0.2) !important;
-  bottom: 100px !important; 
-  top: auto !important;
 }
 
-/* 4. Fix para el contenedor y eliminación de texto "Powered by" */
-.goog-te-gadget {
-  font-size: 0 !important; /* Mata el texto "Powered by" */
-  color: transparent !important;
-  background: transparent !important;
-  border: none !important;
-  pointer-events: none; /* Que el contenedor no estorbe */
+/* Ajuste de posición para el móvil (que abra hacia arriba si es necesario) */
+@media (max-width: 768px) {
+  .goog-te-menu-frame {
+    bottom: 80px !important; 
+    top: auto !important;
+  }
 }
 
-/* El combo sí debe recibir clics */
-.goog-te-gadget .goog-te-combo {
-  pointer-events: auto !important;
-}
-
-/* 5. Fix específico para el flotante de Móvil */
-#gt-floating {
+/* 4. Contenedores de los Widgets */
+.google-translate-container {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  min-height: 24px !important;
+  overflow: visible !important;
+}
+
+/* 5. Fix específico para el botón flotante Móvil */
+#gt-floating {
   pointer-events: auto !important;
 }
 
 #gt-floating .goog-te-combo {
   background: white !important;
   border-radius: 9999px !important;
-  width: 100% !important;
+  padding: 4px 10px !important;
 }
 
-/* 6. Utilidades */
+/* 6. Animaciones y Limpieza */
 .goog-text-highlight {
   background: none !important;
   box-shadow: none !important;

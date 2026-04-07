@@ -3,27 +3,27 @@
 import { useEffect } from "react";
 import { Globe } from "lucide-react";
 
-interface Props {
-  containerId: string;
-  isMobile?: boolean;
-}
-
-export default function GoogleTranslate({ containerId, isMobile }: Props) {
+export default function GoogleTranslate({ containerId, isMobile }: { containerId: string, isMobile?: boolean }) {
   useEffect(() => {
+    // Parche anti-crash para Next.js
+    const originalRemoveChild = Node.prototype.removeChild;
+    (Node.prototype as any).removeChild = function (child: any) {
+      if (child.parentNode !== this) return child;
+      return originalRemoveChild.apply(this, [child]);
+    };
+
     const initTranslate = () => {
       const container = document.getElementById(containerId);
-      if (!container) return;
+      
+      // Evita que Google intente dibujar dos veces en el mismo contenedor
+      if (container && container.innerHTML.includes("goog-te-combo")) return;
 
-      // Limpiamos para evitar duplicados al navegar
-      container.innerHTML = ""; 
-
-      if ((window as any).google?.translate?.TranslateElement) {
+      if (container && (window as any).google?.translate?.TranslateElement) {
+        container.innerHTML = "";
         new (window as any).google.translate.TranslateElement(
           {
             pageLanguage: "en",
-            // Idiomas específicos
-            includedLanguages: "en,es,fr", 
-            // HORIZONTAL es más fácil de limpiar con CSS que SIMPLE
+            includedLanguages: "en,es,fr",
             layout: (window as any).google.translate.TranslateElement.InlineLayout.HORIZONTAL,
             autoDisplay: false,
           },
@@ -32,36 +32,41 @@ export default function GoogleTranslate({ containerId, isMobile }: Props) {
       }
     };
 
-    if (!(window as any).googleTranslateElementInit) {
-      (window as any).googleTranslateElementInit = initTranslate;
+    // EL TRUCO MÁGICO: Cola de inicialización para múltiples traductores
+    if (!(window as any).gtCallbacks) {
+      (window as any).gtCallbacks = [];
+      
+      (window as any).googleTranslateElementInit = () => {
+        // Ejecuta todos los traductores registrados (Desktop y Mobile)
+        (window as any).gtCallbacks.forEach((cb: () => void) => cb());
+      };
+      
       const script = document.createElement("script");
       script.id = "google-translate-script";
       script.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.body.appendChild(script);
-    } else {
-      // Delay para asegurar que el DOM cargó el nuevo ID
-      setTimeout(initTranslate, 500);
     }
+
+    // Añadimos este contenedor específico a la cola
+    (window as any).gtCallbacks.push(initTranslate);
+
+    // Si el script ya había cargado antes (ej. al cambiar de página), lo forzamos a dibujar
+    if ((window as any).google?.translate?.TranslateElement) {
+      setTimeout(initTranslate, 300);
+    }
+
   }, [containerId]);
 
   return (
-    <div 
-      className={`flex items-center gap-2 px-3 py-1.5 transition-all pointer-events-auto relative z-[9999]
-        ${isMobile 
-          ? "bg-transparent" 
-          : "bg-white border border-gray-100 rounded-full shadow-sm hover:border-brand-orange"
-        }`}
-    >
-      <Globe 
-        size={18} 
-        className="text-brand-orange shrink-0 group-hover:rotate-12 transition-transform" 
-      />
-      
-      {/* El contenedor donde Google inyecta el selector */}
+    <div className={`flex items-center gap-2 px-3 py-1.5 pointer-events-auto relative z-[999] ${
+      isMobile ? "bg-transparent" : "bg-white rounded-full border border-gray-100 shadow-sm"
+    }`}>
+      <Globe size={18} className="text-brand-orange shrink-0" />
       <div 
         id={containerId} 
-        className="google-translate-container flex items-center justify-center min-w-[130px] min-h-[24px]"
+        className="google-translate-container notranslate" 
+        style={{ minWidth: '130px', minHeight: '24px' }}
       ></div>
     </div>
   );
